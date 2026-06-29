@@ -1,9 +1,9 @@
 # meta-skill
 
-> **Two thinking skills for AI agents: generate from first principles, verify by adversarial review.**
-> 给 AI agent 的两个思维方法 skill——用第一性原理生成，用对抗式审查验证。
+> **A collection of thinking skills for AI agents — generate from first principles, verify by adversarial review, and more.**
+> 给 AI agent 的思维方法 skill 集合——用第一性原理生成，用对抗式审查验证，持续扩充。
 
-[English](#english) · 中文
+[English](README.en.md) · 中文
 
 ---
 
@@ -98,15 +98,3 @@ cp -r skills/* <你的项目>/.claude/skills/
 ## License
 
 [MIT](LICENSE) © 2026 wangruofeng
-
----
-
-<a name="english"></a>
-## English (brief)
-
-**meta-skill** is a pair of thinking-method skills for AI agents:
-
-- **`first-principles`** — decompose anything into orthogonal fundamental questions, then rebuild transferable mental models. For when you want to *understand*, not memorize.
-- **`adversarial-review`** — force an adversarial stance, actively construct attack vectors, and separate real threats from false positives. For when you need to *verify* it actually holds up.
-
-Generate from first principles, verify by adversarial review — a complete think-it-through loop. See [`skills/`](skills/) for the prompts and [`examples/web-tech-stack.md`](examples/web-tech-stack.md) for sample output. MIT licensed.
