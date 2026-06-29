@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# IDE / 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Claude / agent 本地状态（不入库）
+.claude/settings.local.json
