@@ -1,117 +1,93 @@
 # meta-skill
 
-> **A collection of thinking skills for AI agents — generate from first principles, verify by adversarial review, and more.**
-> 给 AI agent 的思维方法 skill 集合——用第一性原理生成，用对抗式审查验证，持续扩充。
+> 给 AI agent 的思维方法 skill 集合——用第一性原理生成，用对抗式审查验证。
 
 [English](README.en.md) · 中文
 
 ---
 
-## 为什么需要 meta-skill（根本问题）
+## 根本问题
 
-AI agent 很强，但默认有两个稳定的毛病：
+AI agent 默认有两个稳定的毛病：
 
-1. **答完就完**——给个答案就停，不追问「这东西本质上在解决什么问题」。结果是会用一堆库/工具，却说不清它们各自为什么存在。
-2. **确认偏误**——检查方案/代码/文章时，天然倾向说「看起来没问题」，因为顺向走正常路径看不见真实缺陷。真正危险的 bug 和逻辑漏洞，几乎都藏在极端输入、边界情况、恶意使用里。
+1. **答完就完** — 给答案就停，不追问本质。结果能用一堆工具，却说不出它们各自为什么存在。
+2. **确认偏误** — 顺向审查倾向说「没问题」，看不见边界和恶意路径里的真缺陷。
 
 这两个毛病，分别对应思考里最难补的两块：**没想清楚** 和 **没找漏洞**。
 
-meta-skill 的核心是两个思维 skill，各治一个毛病，组成一个闭环：
+## 核心原理
 
-| skill | 治什么毛病 | 一句话 | 做什么 |
-| --- | --- | --- | --- |
-| [`ruofeng-first-principles`](skills/ruofeng-first-principles/SKILL.md) | 答完就完、不追问本质 | 把事物拆到不可再分 | 剥离表象 → 找到少数正交的「根本问题」→ 从根本重建可迁移心智模型 |
-| [`ruofeng-adversarial-review`](skills/ruofeng-adversarial-review/SKILL.md) | 确认偏误、看不见漏洞 | 站到对立面搞垮它 | 强制站到攻击者视角，主动构造攻击向量，区分真威胁与假阳性 |
+思考 = 生成 + 验证。两项能力独立、对称、缺一不可。
 
-**为什么是两个，不是一个**：生成和验证是对称的，缺一不可——
+meta-skill 用两个 skill 把这两项能力显式化：
 
-- 只用 `ruofeng-first-principles` 不做 `ruofeng-adversarial-review` → 方向对，但健壮性差，上线即翻车。
-- 只用 `ruofeng-adversarial-review` 不做 `ruofeng-first-principles` → 能扛打，但方向可能一开始就错了。
+| skill | 解决什么 | 核心原理 |
+| --- | --- | --- |
+| [`ruofeng-first-principles`](skills/ruofeng-first-principles/SKILL.md) | 没想清楚 | **答案会变，根本问题稳定**——剥离表象，找到少数正交的根本问题，从根本重建可迁移心智模型 |
+| [`ruofeng-adversarial-review`](skills/ruofeng-adversarial-review/SKILL.md) | 没找漏洞 | **顺向审查看不见异常路径的真问题**——强制站到攻击者视角，构造攻击向量，区分真威胁与假阳性 |
 
-「想得对」+「没漏掉」，才是完整的思考。
+**为什么是两个**：只生成不验证 → 方向对但一上线就翻车。只验证不生成 → 能扛打但方向可能一开始就错了。「想对」+「没漏」才是完整的思考。
 
-## 配套工具：skill 跨环境同步
+## 使用场景
 
-除这两个思维 skill 外，meta-skill 还附一个工具型 skill：[`ruofeng-sync-skills`](skills/ruofeng-sync-skills/SKILL.md)——通过软链接把 `.claude/skills/` 同步到其他 agent 目录（`.codex/skills`、`.cursor/skills` 等），一次同步、所有环境即时生效，省去手动拷贝。它不参与「生成-验证」闭环，是让上述 skill 跨环境复用的运维工具。
+### ruofeng-first-principles — 搞懂本质
+
+**原理**：任何领域都由少数正交的根本问题定义。抓住根本问题，新答案出现时自动归类，而不是重新学一遍。
+
+**什么时候用**：
+- 转新领域，面对一堆陌生名词想快速建立认知框架
+- 遇到复杂模糊的问题，想找到本质
+- 想把文章/书的底层逻辑提炼出来
+
+**触发方式**：`/ruofeng-first-principles`，或提到「第一性原理」「本质」「为什么」「根本」「拆解」「从零理解」
+
+**示例**：
+```
+/ruofeng-first-principles React + Vite + TanStack Query + Jotai + UnoCSS，我刚转 Web
+```
+> 输出：核心洞察 → 根本问题表 → 逐个拆解（第一性答案/方案分化）→ 心智模型 + 速读法
+
+### ruofeng-adversarial-review — 找漏洞
+
+**原理**：正常路径上的顺向审查天然有盲区。只有强制立场对立、主动构造攻击向量，才能逼出藏在异常路径里的真问题。
+
+**什么时候用**：
+- 代码上线前找 bug
+- 文章/方案的逻辑挑刺
+- 商业方案的反驳、决策的风险排查
+- 系统健壮性测试
+
+**触发方式**：`/ruofeng-adversarial-review`，或提到「审查」「找漏洞」「挑刺」「有没有问题」「扛得住」「边界情况」「压力测试」
+
+**多 agent 模式**：对重要对象说「开启多 agent 对抗审查」，并发 N 个 agent 各扮演不同攻击者（恶意用户/竞争对手/找并发 bug 的），盲区不重叠，比单 agent 严得多。
+
+**示例**：
+```
+/ruofeng-adversarial-review 审查这个信源抓取模块的健壮性（附 src/）
+```
+> 输出：破坏目标 → 确认的威胁（致命/严重/一般，含破绽/证据/加固）→ 排除的假阳性 → 加固优先级
+
+### ruofeng-sync-skills — 跨环境同步
+
+工具型 skill，不参与生成-验证闭环。通过软链接把 `.claude/skills/` 同步到其他 agent 目录，一次同步所有环境可用。
+
+**触发方式**：`/ruofeng-sync-skills`，或提到「同步 skills」「软链接 skill」
 
 ## 安装
 
-两个思维 skill 都是纯 prompt（各一个 `SKILL.md`），不依赖任何外部工具或 API；`ruofeng-sync-skills` 额外附带一个 `sync.sh` 脚本。装到 Claude Code（或任何支持 skill 的 agent）即可。
-
-**方式一：全局（所有项目可用）**
+两个思维 skill 是纯 prompt（各一个 `SKILL.md`），不依赖外部工具。装到支持 skill 的 agent 即可。
 
 ```bash
+# 全局（所有项目可用）
 cp -r skills/* ~/.claude/skills/
+
+# 单项目
+cp -r skills/* <项目>/.claude/skills/
 ```
-
-**方式二：项目内（只在某个项目可用）**
-
-```bash
-cp -r skills/* <你的项目>/.claude/skills/
-```
-
-装好后，在 Claude Code 里直接用 `/ruofeng-first-principles` 或 `/ruofeng-adversarial-review` 触发；也会根据你的措辞自动触发（见下）。
-
-## 怎么用
-
-### `/ruofeng-first-principles` — 第一性原理
-
-**什么时候触发**：你想真正「搞懂」一个东西的本质，而不是表面用法——刚转一个新领域、面对一堆陌生库名、遇到复杂模糊的问题、想把一篇文章/书的底层逻辑提炼出来。
-
-**触发词**：第一性原理 / 本质 / 为什么 / 根本 / 底层逻辑 / 拆解 / 从零理解 / 心智模型。
-
-**示例**：
-
-```
-/ruofeng-first-principles React + Vite + TanStack Query + Jotai + UnoCSS，我刚转 Web 不熟
-```
-
-输出骨架：核心洞察 → N 个根本问题表（通俗说法 + 现有答案 + 常用度）→ 逐个拆解（第一性答案 / 方案分化取舍）→ 心智模型 + 速读法 → 边界与不确定。完整示例见 [`examples/web-tech-stack.md`](examples/web-tech-stack.md)。
-
-### `/ruofeng-adversarial-review` — 对抗式审查
-
-**什么时候触发**：你想确认一个东西「真的没毛病」「能扛得住」——代码上线前的 bug 狩猎、文章/方案的逻辑挑刺、商业方案的反驳、决策的风险排查、系统健壮性测试。
-
-**触发词**：审查 / Review / 找漏洞 / 挑刺 / 有没有问题 / 扛得住 / 边界情况 / 反例 / 攻击 / 压力测试 / 能不能上线。
-
-**多 agent 用法（重要）**：对抗式审查的威力和「对抗密度」正相关。对重要对象，说「**开启多 agent 对抗审查**」，会并发起 N 个 agent，每个扮演不同攻击者（找并发的 / 恶意用户 / 竞争对手……），最后汇总去重按严重度排序。不同视角盲区不重叠，比单 agent 顺查严得多。
-
-**示例**：
-
-```
-/ruofeng-adversarial-review 审查这个信源抓取模块的健壮性（附 src/ 目录）
-```
-
-输出骨架：破坏目标 → 攻击总结 → 确认的威胁（🔴致命 / 🟡严重 / 🟢一般，含破绽/证据/后果/加固）→ 排除的假阳性 → 未覆盖的攻击面 → 加固优先级。
-
-### `/ruofeng-sync-skills` — skill 跨环境同步
-
-**什么时候触发**：你想让 `.claude/skills/` 下的 skill 在 Codex、Cursor 等其他 agent 目录里也可用，而不想每次手动拷贝——换了个 agent、或在新项目里想复用同一套 skill 时。
-
-**触发词**：同步 skills / sync skills / 软链接 skill / 跨环境同步 / 把 skill 链到 codex。
-
-**示例**：
-
-```
-/ruofeng-sync-skills
-```
-
-自动扫描所有 `.* /skills/` 目录并建立相对路径软链接；也支持预览（`sync.sh --dry-run`）和手动指定目标。详细策略见 skill 内 [`references/policy.md`](skills/ruofeng-sync-skills/references/policy.md)。
-
-## 设计哲学
-
-**meta-skill 的核心信念**：思考是两项独立的能力——**生成**（从根本事实出发想出一个对的方案）和**验证**（证明它能扛住真实世界的攻击和意外）。多数 AI 工具只强化「生成」，很少认真做「验证」。
-
-这两个 skill 把这两项能力显式化、可触发、可复用：
-
-- `ruofeng-first-principles` 的内核：**答案会变，根本问题稳定**。抓住根本问题，新答案出现时你能自动归类，而不是重新学一遍。
-- `ruofeng-adversarial-review` 的内核：**顺向审查看不见异常路径里的真问题**，强制立场对立才能逼出它们；并诚实区分「真威胁」和「假阳性」，宁可少而准，不要多而虚。
-
-两个 skill 互相点名对方为「配套」——这不是巧合，是设计：一个负责想对，一个负责没漏。合起来是完整的「生成 → 验证」闭环。
 
 ## 贡献
 
-欢迎提 issue / PR：补充新示例、改进攻击维度、增加语言版本。这两个 skill 的方法论部分（执行步骤、输出结构、风格要求）是核心，改动请谨慎；对运行环境的引用请保持通用，不要绑定某个特定的笔记库或命令集。
+欢迎提 issue / PR。两个 skill 的方法论部分（执行步骤、输出结构、风格要求）是核心，改动请谨慎。
 
 ## License
 

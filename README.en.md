@@ -1,116 +1,93 @@
 # meta-skill
 
-> **A collection of thinking skills for AI agents — generate from first principles, verify by adversarial review, and more.**
+> A collection of thinking skills for AI agents — generate from first principles, verify by adversarial review.
 
 [中文](README.md) · English
 
 ---
 
-## Why meta-skill (the fundamental problem)
+## The Root Problem
 
-AI agents are powerful, but they share two stable failure modes by default:
+AI agents share two stable failure modes by default:
 
-1. **"Answer and stop"** — they hand you an answer and move on without ever asking "what problem is this *actually* solving?". You end up using a pile of libraries and tools without being able to explain why each one exists.
-2. **Confirmation bias** — when reviewing a plan / piece of code / article, they naturally lean toward "looks fine", because checking along the happy path can't see real defects. The truly dangerous bugs and logic gaps almost always hide in extreme inputs, edge cases, and malicious use.
+1. **"Answer and stop"** — they hand you an answer without asking what problem it's *actually* solving. You end up using tools without understanding why each exists.
+2. **Confirmation bias** — linear review leans toward "looks fine", blind to real defects hiding in edge cases and malicious paths.
 
-These two failure modes map to the two hardest gaps in thinking: **not thinking it through**, and **not finding the holes**.
+These map to the two hardest gaps in thinking: **not thinking it through**, and **not finding the holes**.
 
-meta-skill is a growing set of skills that each close one of these gaps. Its core is two thinking skills, forming a generate → verify loop:
+## Core Principles
 
-| skill | closes which gap | in one line | what it does |
-| --- | --- | --- | --- |
-| [`ruofeng-first-principles`](skills/ruofeng-first-principles/SKILL.md) | "answer and stop", no root questioning | decompose to the indivisible | strip away the surface → find a few orthogonal "fundamental questions" → rebuild transferable mental models |
-| [`ruofeng-adversarial-review`](skills/ruofeng-adversarial-review/SKILL.md) | confirmation bias, can't see holes | stand on the other side and break it | force an attacker's stance, actively construct attack vectors, separate real threats from false positives |
+Thinking = generation + verification. Two independent, symmetric abilities — neither works alone.
 
-**Why these two, as a pair**: generation and verification are symmetric and both essential —
+meta-skill makes both explicit with two skills:
 
-- Only `ruofeng-first-principles` without `ruofeng-adversarial-review` → right direction, but fragile; breaks on launch.
-- Only `ruofeng-adversarial-review` without `ruofeng-first-principles` → robust, but the direction might be wrong from the start.
+| skill | solves what | core principle |
+| --- | --- | --- |
+| [`ruofeng-first-principles`](skills/ruofeng-first-principles/SKILL.md) | not thinking it through | **Answers change, fundamental questions are stable** — strip away the surface, find the few orthogonal root questions, rebuild transferable mental models from them |
+| [`ruofeng-adversarial-review`](skills/ruofeng-adversarial-review/SKILL.md) | not finding the holes | **Linear review can't see real problems on abnormal paths** — force an attacker's stance, construct attack vectors, separate real threats from false positives |
 
-"Think it right" + "don't miss anything" is what complete thinking means.
+**Why two, not one**: generation without verification → right direction but breaks on launch. Verification without generation → robust but direction may be wrong from the start. "Think it right" + "don't miss anything" is complete thinking.
 
-## Companion tool: cross-environment skill sync
+## Use Cases
 
-Beyond these two thinking skills, meta-skill ships one tooling skill: [`ruofeng-sync-skills`](skills/ruofeng-sync-skills/SKILL.md) — it syncs `.claude/skills/` to other agent directories (`.codex/skills`, `.cursor/skills`, …) via symlinks, so one sync makes every skill available across all environments without manual copying. It sits outside the generate → verify loop; it's the plumbing that lets the skills above be reused across environments.
+### ruofeng-first-principles — Understand the essence
 
-## Installation
+**Principle**: every domain is defined by a few orthogonal fundamental questions. Grasp them, and you automatically categorize new answers instead of re-learning from scratch.
 
-Both thinking skills are pure prompts (one `SKILL.md` each), with no external tools or APIs; `ruofeng-sync-skills` additionally ships a `sync.sh` script. Drop them into Claude Code (or any agent that supports skills).
+**When to use**:
+- Entering a new field, facing unfamiliar terms, wanting to build a mental framework fast
+- Tackling a complex, fuzzy problem and wanting to find its essence
+- Distilling the underlying logic of an article or book
 
-**Option 1: globally (available in all projects)**
-
-```bash
-cp -r skills/* ~/.claude/skills/
-```
-
-**Option 2: in a single project**
-
-```bash
-cp -r skills/* <your-project>/.claude/skills/
-```
-
-Once installed, trigger with `/ruofeng-first-principles` or `/ruofeng-adversarial-review` in Claude Code; they also auto-trigger based on your phrasing (see below).
-
-## Usage
-
-### `/ruofeng-first-principles` — first-principles thinking
-
-**When to trigger**: when you want to genuinely *understand* the essence of something rather than its surface usage — entering a new field, facing a pile of unfamiliar library names, tackling a complex fuzzy problem, or distilling the underlying logic of an article or book.
-
-**Trigger words**: first principles / essence / why / fundamental / underlying logic / decompose / from scratch / mental model.
+**Trigger**: `/ruofeng-first-principles`, or phrases like "first principles", "essence", "why", "fundamental", "decompose", "from scratch"
 
 **Example**:
-
 ```
 /ruofeng-first-principles React + Vite + TanStack Query + Jotai + UnoCSS, I'm new to web
 ```
+> Output: core insight → fundamental questions table → per-question breakdown (first-principles answer / tradeoffs) → mental model + speed-reading method
 
-Output skeleton: core insight → table of N fundamental questions (plain wording + current answer + frequency) → per-question breakdown (first-principles answer / tradeoff divergence) → mental model + speed-reading method → boundaries & uncertainty. Full example at [`examples/web-tech-stack.md`](examples/web-tech-stack.md).
+### ruofeng-adversarial-review — Find the holes
 
-### `/ruofeng-adversarial-review` — adversarial review
+**Principle**: linear review along the happy path has inherent blind spots. Only forced opposition and active attack construction can flush out the real problems hiding in abnormal paths.
 
-**When to trigger**: when you need to confirm something is *actually fine* and *can hold up* — bug hunting before a release, logic-picking an article or plan, rebutting a business proposal, risk-checking a decision, stress-testing system robustness.
+**When to use**:
+- Bug hunting before a release
+- Logic-picking an article or proposal
+- Rebutting a business case, risk-checking a decision
+- Stress-testing system robustness
 
-**Trigger words**: review / find holes / nitpick / any issues? / hold up / edge cases / counterexamples / attack / stress test / ready to ship?.
+**Trigger**: `/ruofeng-adversarial-review`, or phrases like "review", "find holes", "edge cases", "stress test", "ready to ship?"
 
-**Multi-agent usage (important)**: the power of adversarial review scales with *adversarial density*. For important targets, say "**turn on multi-agent adversarial review**", and N agents spawn concurrently, each playing a different attacker (concurrency bugs / malicious user / competitor…), then dedupe and rank by severity. Different perspectives have non-overlapping blind spots — far stricter than a single agent's linear pass.
+**Multi-agent mode**: for critical targets, say "turn on multi-agent adversarial review". N agents spawn concurrently, each playing a different attacker (malicious user / competitor / concurrency hunter). Non-overlapping blind spots — far stricter than single-agent linear pass.
 
 **Example**:
-
 ```
 /ruofeng-adversarial-review review the robustness of this feed-fetcher module (src/ attached)
 ```
+> Output: break goal → confirmed threats (fatal/serious/minor, with flaw/evidence/hardening) → ruled-out false positives → hardening priority
 
-Output skeleton: break goal → attack summary → confirmed threats (🔴 fatal / 🟡 serious / 🟢 minor, with flaw / evidence / impact / hardening) → ruled-out false positives → uncovered attack surfaces → hardening priority.
+### ruofeng-sync-skills — Cross-environment sync
 
-### `/ruofeng-sync-skills` — cross-environment skill sync
+A tooling skill outside the generate-verify loop. Syncs `.claude/skills/` to other agent directories via symlinks — one sync, every environment updated.
 
-**When to trigger**: when you want the skills under `.claude/skills/` to be available in other agent directories (Codex, Cursor, …) without copying them every time — switching agents, or reusing one skill set across projects.
+**Trigger**: `/ruofeng-sync-skills`, or "sync skills", "symlink skills"
 
-**Trigger words**: sync skills / symlink skills / cross-environment sync / link skills to codex.
+## Installation
 
-**Example**:
+Both thinking skills are pure prompts (one `SKILL.md` each), no external dependencies. Drop into any agent that supports skills.
 
+```bash
+# globally (all projects)
+cp -r skills/* ~/.claude/skills/
+
+# single project
+cp -r skills/* <project>/.claude/skills/
 ```
-/ruofeng-sync-skills
-```
-
-Auto-discovers every `.* /skills/` directory and creates relative-path symlinks; also supports a dry run (`sync.sh --dry-run`) and manual targets. Full policy in the skill's [`references/policy.md`](skills/ruofeng-sync-skills/references/policy.md).
-
-## Design philosophy
-
-**The core belief behind meta-skill**: thinking is two independent abilities — **generation** (starting from fundamental facts to arrive at a correct plan) and **verification** (proving it can survive real-world attacks and accidents). Most AI tooling only amplifies "generation"; few take "verification" seriously.
-
-These two skills make both abilities explicit, triggerable, and reusable:
-
-- `ruofeng-first-principles` kernel: **answers change, fundamental questions are stable**. Grasp the fundamental questions and you can automatically categorize new answers as they appear, instead of re-learning from scratch.
-- `ruofeng-adversarial-review` kernel: **linear review can't see the real problems on abnormal paths**; only forced opposition can flush them out — and it honestly separates "real threats" from "false positives", preferring few-and-correct over many-and-vague.
-
-The two skills point at each other as "the companion" — not a coincidence, but by design: one is responsible for thinking it right, the other for not missing anything. Together they form a complete generate → verify loop.
 
 ## Contributing
 
-Issues and PRs welcome: add new examples, improve attack dimensions, add language versions. The methodology parts of these skills (steps, output structure, style) are the core — change with care. Keep environment references generic; don't tie them to a specific note vault or command set.
+Issues and PRs welcome. The methodology parts (steps, output structure, style) are the core — change with care.
 
 ## License
 
