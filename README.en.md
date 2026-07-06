@@ -79,29 +79,44 @@ A tooling skill. Given a GitHub skill repo URL, parses it and generates `npx ski
 
 **Trigger**: `/ruofeng-skill-installer`, or "install skill", "skill install"
 
-## third-skills — Third-party skills
+## All Skills at a Glance
 
-Curated third-party ecosystem skills. See [third-skills/README.md](third-skills/README.md) for details.
+| skill | purpose |
+|-------|---------|
+| ruofeng-first-principles | First-principles analysis — strip away surface to find root questions, build transferable mental models |
+| ruofeng-adversarial-review | Adversarial review — take the attacker's stance, find flaws, blind spots, and vulnerabilities |
+| ruofeng-sync-skills | Cross-environment skill sync via symlinks across agent directories |
+| ruofeng-skill-installer | Generate `npx skills add` install commands from GitHub skill repo URLs |
+| find-skills | Discover and search for agent skills, verify quality before recommending |
+| skill-creator | Full workbench for creating, improving, and evaluating skills |
+| yao-meta-skill | Structured skill engineering methodology with Scaffold / Production / Library modes |
 
-| skill | purpose | install |
-|-------|---------|---------|
-| find-skills | Discover and search for skills | `npx skills add https://github.com/vercel-labs/skills --skill find-skills` |
-| skill-creator | Create, improve, and evaluate skills | `npx skills add https://github.com/anthropics/skills --skill skill-creator` |
-| yao-meta-skill | Structured skill engineering methodology | `npx skills add https://github.com/yaojingang/yao-meta-skill --skill yao-meta-skill` |
+## Meta Skills Installation
 
-## Installation
-
-Skills under skills/ are pure prompts (one `SKILL.md` each), no external dependencies. Drop into any agent that supports skills.
+### Method 1 (Recommended): npx skills add
 
 ```bash
-# globally (all projects)
-cp -r skills/* ~/.claude/skills/
+# Own skills
+npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-first-principles
+npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-adversarial-review
+npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-sync-skills
+npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-skill-installer
 
-# single project
-cp -r skills/* <project>/.claude/skills/
+# Third-party skills (see third-skills/README.md for details)
+npx skills add https://github.com/vercel-labs/skills --skill find-skills
+npx skills add https://github.com/anthropics/skills --skill skill-creator
+npx skills add https://github.com/yaojingang/yao-meta-skill --skill yao-meta-skill
 ```
 
-Third-party skills under third-skills/ are installed via `npx skills add`. See [third-skills/README.md](third-skills/README.md) for exact commands.
+### Method 2: Clone the repository
+
+```bash
+git clone https://github.com/wangruofeng/meta-skill.git
+# Global install (all projects)
+cp -r meta-skill/skills/* ~/.claude/skills/
+# Or single project
+cp -r meta-skill/skills/* <project>/.claude/skills/
+```
 
 ## Contributing
 

@@ -23,8 +23,8 @@ meta-skill 用两个 skill 把这两项能力显式化：
 
 | skill | 解决什么 | 核心原理 |
 | --- | --- | --- |
-| [`ruofeng-first-principles`](skills/ruofeng-first-principles/SKILL.md) | 没想清楚 | **答案会变，根本问题稳定**——剥离表象，找到少数正交的根本问题，从根本重建可迁移心智模型 |
-| [`ruofeng-adversarial-review`](skills/ruofeng-adversarial-review/SKILL.md) | 没找漏洞 | **顺向审查看不见异常路径的真问题**——强制站到攻击者视角，构造攻击向量，区分真威胁与假阳性 |
+| [ruofeng-first-principles](skills/ruofeng-first-principles/SKILL.md) | 没想清楚 | **答案会变，根本问题稳定**——剥离表象，找到少数正交的根本问题，从根本重建可迁移心智模型 |
+| [ruofeng-adversarial-review](skills/ruofeng-adversarial-review/SKILL.md) | 没找漏洞 | **顺向审查看不见异常路径的真问题**——强制站到攻击者视角，构造攻击向量，区分真威胁与假阳性 |
 
 **为什么是两个**：只生成不验证 → 方向对但一上线就翻车。只验证不生成 → 能扛打但方向可能一开始就错了。「想对」+「没漏」才是完整的思考。
 
@@ -79,29 +79,44 @@ meta-skill 用两个 skill 把这两项能力显式化：
 
 **触发方式**：`/ruofeng-skill-installer`，或提到「安装 skill」「skill 安装」
 
-## third-skills — 第三方 skills
+## 所有 skill 一览
 
-精选的第三方生态 skills，详细说明见 [third-skills/README.md](third-skills/README.md)。
+| skill | 用途 |
+|-------|------|
+| ruofeng-first-principles | 第一性原理解读，剥离表象找到根本问题，建立可迁移心智模型 |
+| ruofeng-adversarial-review | 对抗式审查，站在攻击者视角找破绽、盲区和漏洞 |
+| ruofeng-sync-skills | 跨环境同步 skills，通过软链接保持多 agent 目录一致 |
+| ruofeng-skill-installer | 输入 GitHub skill 仓库 URL，生成 npx skills add 安装命令 |
+| find-skills | 搜索和发现 agent skills，验证质量后推荐安装 |
+| skill-creator | 创建、改进和评估 skills 的完整工作台 |
+| yao-meta-skill | 结构化 skill 工程方法论，支持 Scaffold / Production / Library 三种模式 |
 
-| skill | 用途 | 安装 |
-|-------|------|------|
-| find-skills | 搜索和发现 skills | `npx skills add https://github.com/vercel-labs/skills --skill find-skills` |
-| skill-creator | 创建、改进和评估 skills | `npx skills add https://github.com/anthropics/skills --skill skill-creator` |
-| yao-meta-skill | 结构化 skill 工程方法论 | `npx skills add https://github.com/yaojingang/yao-meta-skill --skill yao-meta-skill` |
+## meta skill 安装
 
-## 安装
-
-skills/ 下的 skill 是纯 prompt（各一个 `SKILL.md`），不依赖外部工具。装到支持 skill 的 agent 即可。
+### 方式一(推荐)：npx skills add
 
 ```bash
-# 全局（所有项目可用）
-cp -r skills/* ~/.claude/skills/
+# 自有 skills
+npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-first-principles
+npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-adversarial-review
+npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-sync-skills
+npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-skill-installer
 
-# 单项目
-cp -r skills/* <项目>/.claude/skills/
+# 第三方 skills（详见 third-skills/README.md）
+npx skills add https://github.com/vercel-labs/skills --skill find-skills
+npx skills add https://github.com/anthropics/skills --skill skill-creator
+npx skills add https://github.com/yaojingang/yao-meta-skill --skill yao-meta-skill
 ```
 
-third-skills/ 下的第三方 skill 通过 `npx skills add` 安装，具体命令见 [third-skills/README.md](third-skills/README.md)。
+### 方式二：克隆源码
+
+```bash
+git clone https://github.com/wangruofeng/meta-skill.git
+# 全局安装（所有项目可用）
+cp -r meta-skill/skills/* ~/.claude/skills/
+# 或单项目安装
+cp -r meta-skill/skills/* <项目>/.claude/skills/
+```
 
 ## 贡献
 
