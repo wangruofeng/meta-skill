@@ -15,23 +15,27 @@ AI agents are powerful, but they share two stable failure modes by default:
 
 These two failure modes map to the two hardest gaps in thinking: **not thinking it through**, and **not finding the holes**.
 
-meta-skill is a growing set of skills that each close one of these gaps. It currently includes two, forming a generate → verify loop:
+meta-skill is a growing set of skills that each close one of these gaps. Its core is two thinking skills, forming a generate → verify loop:
 
 | skill | closes which gap | in one line | what it does |
 | --- | --- | --- | --- |
-| [`first-principles`](skills/first-principles/SKILL.md) | "answer and stop", no root questioning | decompose to the indivisible | strip away the surface → find a few orthogonal "fundamental questions" → rebuild transferable mental models |
-| [`adversarial-review`](skills/adversarial-review/SKILL.md) | confirmation bias, can't see holes | stand on the other side and break it | force an attacker's stance, actively construct attack vectors, separate real threats from false positives |
+| [`ruofeng-first-principles`](skills/ruofeng-first-principles/SKILL.md) | "answer and stop", no root questioning | decompose to the indivisible | strip away the surface → find a few orthogonal "fundamental questions" → rebuild transferable mental models |
+| [`ruofeng-adversarial-review`](skills/ruofeng-adversarial-review/SKILL.md) | confirmation bias, can't see holes | stand on the other side and break it | force an attacker's stance, actively construct attack vectors, separate real threats from false positives |
 
 **Why these two, as a pair**: generation and verification are symmetric and both essential —
 
-- Only `first-principles` without `adversarial-review` → right direction, but fragile; breaks on launch.
-- Only `adversarial-review` without `first-principles` → robust, but the direction might be wrong from the start.
+- Only `ruofeng-first-principles` without `ruofeng-adversarial-review` → right direction, but fragile; breaks on launch.
+- Only `ruofeng-adversarial-review` without `ruofeng-first-principles` → robust, but the direction might be wrong from the start.
 
 "Think it right" + "don't miss anything" is what complete thinking means.
 
+## Companion tool: cross-environment skill sync
+
+Beyond these two thinking skills, meta-skill ships one tooling skill: [`ruofeng-sync-skills`](skills/ruofeng-sync-skills/SKILL.md) — it syncs `.claude/skills/` to other agent directories (`.codex/skills`, `.cursor/skills`, …) via symlinks, so one sync makes every skill available across all environments without manual copying. It sits outside the generate → verify loop; it's the plumbing that lets the skills above be reused across environments.
+
 ## Installation
 
-Both skills are pure prompts (one `SKILL.md` each), with no external tools or APIs. Drop them into Claude Code (or any agent that supports skills).
+Both thinking skills are pure prompts (one `SKILL.md` each), with no external tools or APIs; `ruofeng-sync-skills` additionally ships a `sync.sh` script. Drop them into Claude Code (or any agent that supports skills).
 
 **Option 1: globally (available in all projects)**
 
@@ -45,11 +49,11 @@ cp -r skills/* ~/.claude/skills/
 cp -r skills/* <your-project>/.claude/skills/
 ```
 
-Once installed, trigger with `/first-principles` or `/adversarial-review` in Claude Code; they also auto-trigger based on your phrasing (see below).
+Once installed, trigger with `/ruofeng-first-principles` or `/ruofeng-adversarial-review` in Claude Code; they also auto-trigger based on your phrasing (see below).
 
 ## Usage
 
-### `/first-principles` — first-principles thinking
+### `/ruofeng-first-principles` — first-principles thinking
 
 **When to trigger**: when you want to genuinely *understand* the essence of something rather than its surface usage — entering a new field, facing a pile of unfamiliar library names, tackling a complex fuzzy problem, or distilling the underlying logic of an article or book.
 
@@ -58,12 +62,12 @@ Once installed, trigger with `/first-principles` or `/adversarial-review` in Cla
 **Example**:
 
 ```
-/first-principles React + Vite + TanStack Query + Jotai + UnoCSS, I'm new to web
+/ruofeng-first-principles React + Vite + TanStack Query + Jotai + UnoCSS, I'm new to web
 ```
 
 Output skeleton: core insight → table of N fundamental questions (plain wording + current answer + frequency) → per-question breakdown (first-principles answer / tradeoff divergence) → mental model + speed-reading method → boundaries & uncertainty. Full example at [`examples/web-tech-stack.md`](examples/web-tech-stack.md).
 
-### `/adversarial-review` — adversarial review
+### `/ruofeng-adversarial-review` — adversarial review
 
 **When to trigger**: when you need to confirm something is *actually fine* and *can hold up* — bug hunting before a release, logic-picking an article or plan, rebutting a business proposal, risk-checking a decision, stress-testing system robustness.
 
@@ -74,10 +78,24 @@ Output skeleton: core insight → table of N fundamental questions (plain wordin
 **Example**:
 
 ```
-/adversarial-review review the robustness of this feed-fetcher module (src/ attached)
+/ruofeng-adversarial-review review the robustness of this feed-fetcher module (src/ attached)
 ```
 
 Output skeleton: break goal → attack summary → confirmed threats (🔴 fatal / 🟡 serious / 🟢 minor, with flaw / evidence / impact / hardening) → ruled-out false positives → uncovered attack surfaces → hardening priority.
+
+### `/ruofeng-sync-skills` — cross-environment skill sync
+
+**When to trigger**: when you want the skills under `.claude/skills/` to be available in other agent directories (Codex, Cursor, …) without copying them every time — switching agents, or reusing one skill set across projects.
+
+**Trigger words**: sync skills / symlink skills / cross-environment sync / link skills to codex.
+
+**Example**:
+
+```
+/ruofeng-sync-skills
+```
+
+Auto-discovers every `.* /skills/` directory and creates relative-path symlinks; also supports a dry run (`sync.sh --dry-run`) and manual targets. Full policy in the skill's [`references/policy.md`](skills/ruofeng-sync-skills/references/policy.md).
 
 ## Design philosophy
 
@@ -85,8 +103,8 @@ Output skeleton: break goal → attack summary → confirmed threats (🔴 fatal
 
 These two skills make both abilities explicit, triggerable, and reusable:
 
-- `first-principles` kernel: **answers change, fundamental questions are stable**. Grasp the fundamental questions and you can automatically categorize new answers as they appear, instead of re-learning from scratch.
-- `adversarial-review` kernel: **linear review can't see the real problems on abnormal paths**; only forced opposition can flush them out — and it honestly separates "real threats" from "false positives", preferring few-and-correct over many-and-vague.
+- `ruofeng-first-principles` kernel: **answers change, fundamental questions are stable**. Grasp the fundamental questions and you can automatically categorize new answers as they appear, instead of re-learning from scratch.
+- `ruofeng-adversarial-review` kernel: **linear review can't see the real problems on abnormal paths**; only forced opposition can flush them out — and it honestly separates "real threats" from "false positives", preferring few-and-correct over many-and-vague.
 
 The two skills point at each other as "the companion" — not a coincidence, but by design: one is responsible for thinking it right, the other for not missing anything. Together they form a complete generate → verify loop.
 

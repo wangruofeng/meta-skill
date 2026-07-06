@@ -1,6 +1,6 @@
 # Web 技术栈第一性原理拆解
 
-> 这是 `/first-principles` skill 的一段示例输出，用来展示它的产出长什么样。
+> 这是 `/ruofeng-first-principles` skill 的一段示例输出，用来展示它的产出长什么样。
 >
 > **输入**：「NewsNow 的技术栈 React + TanStack Router + TanStack Query + Jotai + UnoCSS + Vite + Nitro，我刚转 Web 不熟」
 
@@ -21,13 +21,13 @@
 
 ## 逐个拆解
 
-### 问题 3：数据通信（分两层，新人最易混淆）
+### 问题 1：数据通信（分两层，新人最易混淆）
 
 上层 **TanStack Query** 管「何时拿 / 怎么缓存」，下层 **ofetch** 管「怎么发请求」。一个管策略，一个管执行。
 
 🚨 **关键易错点**：服务器数据用 Query，UI 状态（开关、输入框）用状态管理库（Jotai），别混。新人最容易把所有「数据」都塞进同一个地方。
 
-### 问题 6：构建 + 部署
+### 问题 2：构建 + 部署
 
 **Vite** 管「源码 → 前端产物」（开发体验、热更新、打包），**Nitro** 管「跑起来 + 部署到边缘」（SSR、serverless 适配）。一个管打包，一个管运行时。
 
