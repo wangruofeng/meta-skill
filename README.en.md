@@ -73,9 +73,25 @@ A tooling skill outside the generate-verify loop. Syncs `.claude/skills/` to oth
 
 **Trigger**: `/ruofeng-sync-skills`, or "sync skills", "symlink skills"
 
+### ruofeng-skill-installer — Generate install commands
+
+A tooling skill. Given a GitHub skill repo URL, parses it and generates `npx skills add` install commands, checking for extra dependencies along the way.
+
+**Trigger**: `/ruofeng-skill-installer`, or "install skill", "skill install"
+
+## third-skills — Third-party skills
+
+Curated third-party ecosystem skills. See [third-skills/README.md](third-skills/README.md) for details.
+
+| skill | purpose | install |
+|-------|---------|---------|
+| find-skills | Discover and search for skills | `npx skills add https://github.com/vercel-labs/skills --skill find-skills` |
+| skill-creator | Create, improve, and evaluate skills | `npx skills add https://github.com/anthropics/skills --skill skill-creator` |
+| yao-meta-skill | Structured skill engineering methodology | `npx skills add https://github.com/yaojingang/yao-meta-skill --skill yao-meta-skill` |
+
 ## Installation
 
-Both thinking skills are pure prompts (one `SKILL.md` each), no external dependencies. Drop into any agent that supports skills.
+Skills under skills/ are pure prompts (one `SKILL.md` each), no external dependencies. Drop into any agent that supports skills.
 
 ```bash
 # globally (all projects)
@@ -85,9 +101,11 @@ cp -r skills/* ~/.claude/skills/
 cp -r skills/* <project>/.claude/skills/
 ```
 
+Third-party skills under third-skills/ are installed via `npx skills add`. See [third-skills/README.md](third-skills/README.md) for exact commands.
+
 ## Contributing
 
-Issues and PRs welcome. The methodology parts (steps, output structure, style) are the core — change with care.
+Issues and PRs welcome. Each skill's methodology (steps, output structure, style) is the core — change with care.
 
 ## License
 

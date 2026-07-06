@@ -73,9 +73,25 @@ meta-skill 用两个 skill 把这两项能力显式化：
 
 **触发方式**：`/ruofeng-sync-skills`，或提到「同步 skills」「软链接 skill」
 
+### ruofeng-skill-installer — 生成安装命令
+
+工具型 skill，输入 GitHub skill 仓库 URL，自动解析并生成 `npx skills add` 安装命令，同时检查是否有额外依赖。
+
+**触发方式**：`/ruofeng-skill-installer`，或提到「安装 skill」「skill 安装」
+
+## third-skills — 第三方 skills
+
+精选的第三方生态 skills，详细说明见 [third-skills/README.md](third-skills/README.md)。
+
+| skill | 用途 | 安装 |
+|-------|------|------|
+| find-skills | 搜索和发现 skills | `npx skills add https://github.com/vercel-labs/skills --skill find-skills` |
+| skill-creator | 创建、改进和评估 skills | `npx skills add https://github.com/anthropics/skills --skill skill-creator` |
+| yao-meta-skill | 结构化 skill 工程方法论 | `npx skills add https://github.com/yaojingang/yao-meta-skill --skill yao-meta-skill` |
+
 ## 安装
 
-两个思维 skill 是纯 prompt（各一个 `SKILL.md`），不依赖外部工具。装到支持 skill 的 agent 即可。
+skills/ 下的 skill 是纯 prompt（各一个 `SKILL.md`），不依赖外部工具。装到支持 skill 的 agent 即可。
 
 ```bash
 # 全局（所有项目可用）
@@ -85,9 +101,11 @@ cp -r skills/* ~/.claude/skills/
 cp -r skills/* <项目>/.claude/skills/
 ```
 
+third-skills/ 下的第三方 skill 通过 `npx skills add` 安装，具体命令见 [third-skills/README.md](third-skills/README.md)。
+
 ## 贡献
 
-欢迎提 issue / PR。两个 skill 的方法论部分（执行步骤、输出结构、风格要求）是核心，改动请谨慎。
+欢迎提 issue / PR。各 skill 的方法论部分（执行步骤、输出结构、风格要求）是核心，改动请谨慎。
 
 ## License
 
