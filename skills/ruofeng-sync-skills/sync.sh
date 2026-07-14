@@ -38,16 +38,21 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ ${#TARGETS[@]} -eq 0 ]]; then
-  # 自动识别所有 .xxx/skills 目录（相对于项目根目录）
+  # 自动识别项目根目录下的 ".<agent>/skills" 目录（仅一级隐藏目录）
   echo "  正在自动扫描 .xxx/skills 目录..."
+  # 仅匹配一级隐藏目录 .<agent>/skills；跳过更深层嵌套（如 .git/modules/.claude/skills）
+  # 与 git 内部目录 .git/...，避免误把 git 子模块镜像库当成同步目标
+  skills_re='^\.[^/]+/skills$'
   while IFS= read -r -d '' dir; do
     # 转换为相对于项目根目录的路径
     rel_path="${dir#$PROJECT_ROOT/}"
-    # 排除源目录本身 .claude/skills
-    if [[ "$rel_path" != ".claude/skills" ]]; then
+    if [[ "$rel_path" =~ $skills_re \
+          && "$rel_path" != ".claude/skills" \
+          && "$rel_path" != .git/* ]]; then
       TARGETS+=("$rel_path")
     fi
-  done < <(find "$PROJECT_ROOT" -type d -name "skills" -path "*/.[^/]*/*" -print0 2>/dev/null | sort -z)
+  done < <(find "$PROJECT_ROOT" -maxdepth 2 -type d -name "skills" \
+            -path "*/.[^/]*/skills" -not -path "*/.git/*" -print0 2>/dev/null | sort -z)
 
   # 如果没有找到，使用默认值
   if [[ ${#TARGETS[@]} -eq 0 ]]; then

@@ -1,7 +1,7 @@
 ---
 name: ruofeng-sync-skills
 description: "通过软链接将 .claude/skills 同步到其他 agent 目录（.codex/skills, .cursor/skills 等），自动创建、更新、清理软链接，保持跨环境 skill 即时同步"
-version: 0.3.0
+version: 0.4.0
 ---
 
 # Skill 同步工具
@@ -26,7 +26,7 @@ bash .claude/skills/ruofeng-sync-skills/sync.sh .codex/skills .cursor/skills
 
 ## 行为
 
-- **自动发现目标**：扫描所有 `.* /skills/` 目录
+- **自动发现目标**：仅扫描项目根目录下的一级 `.<agent>/skills/` 目录，跳过更深层嵌套（如 `.git/modules/.claude/skills`）与 `.git/` 内部目录，避免误同步污染 git 子模块镜像库
 - **相对路径软链接**：`../../.claude/skills/xxx`，跨机器可用
 - **自排除**：不同步 `ruofeng-sync-skills` 自身
 - **自动清理**：删除指向已不存在 skill 的断连软链接
