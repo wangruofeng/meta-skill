@@ -23,14 +23,14 @@ meta-skill makes both explicit with two skills:
 
 | skill | solves what | core principle |
 | --- | --- | --- |
-| [`ruofeng-first-principles`](skills/ruofeng-first-principles/SKILL.md) | not thinking it through | **Answers change, fundamental questions are stable** — strip away the surface, find the few orthogonal root questions, rebuild transferable mental models from them |
-| [`ruofeng-adversarial-review`](skills/ruofeng-adversarial-review/SKILL.md) | not finding the holes | **Linear review can't see real problems on abnormal paths** — force an attacker's stance, construct attack vectors, separate real threats from false positives |
+| [`rf-first-principles`](skills/rf-first-principles/SKILL.md) | not thinking it through | **Answers change, fundamental questions are stable** — strip away the surface, find the few orthogonal root questions, rebuild transferable mental models from them |
+| [`rf-adversarial-review`](skills/rf-adversarial-review/SKILL.md) | not finding the holes | **Linear review can't see real problems on abnormal paths** — force an attacker's stance, construct attack vectors, separate real threats from false positives |
 
 **Why two, not one**: generation without verification → right direction but breaks on launch. Verification without generation → robust but direction may be wrong from the start. "Think it right" + "don't miss anything" is complete thinking.
 
 ## Use Cases
 
-### ruofeng-first-principles — Understand the essence
+### rf-first-principles — Understand the essence
 
 **Principle**: every domain is defined by a few orthogonal fundamental questions. Grasp them, and you automatically categorize new answers instead of re-learning from scratch.
 
@@ -39,15 +39,15 @@ meta-skill makes both explicit with two skills:
 - Tackling a complex, fuzzy problem and wanting to find its essence
 - Distilling the underlying logic of an article or book
 
-**Trigger**: `/ruofeng-first-principles`, or phrases like "first principles", "essence", "why", "fundamental", "decompose", "from scratch"
+**Trigger**: `/rf-first-principles`, or phrases like "first principles", "essence", "why", "fundamental", "decompose", "from scratch"
 
 **Example**:
 ```
-/ruofeng-first-principles React + Vite + TanStack Query + Jotai + UnoCSS, I'm new to web
+/rf-first-principles React + Vite + TanStack Query + Jotai + UnoCSS, I'm new to web
 ```
 > Output: core insight → fundamental questions table → per-question breakdown (first-principles answer / tradeoffs) → mental model + speed-reading method
 
-### ruofeng-adversarial-review — Find the holes
+### rf-adversarial-review — Find the holes
 
 **Principle**: linear review along the happy path has inherent blind spots. Only forced opposition and active attack construction can flush out the real problems hiding in abnormal paths.
 
@@ -57,36 +57,36 @@ meta-skill makes both explicit with two skills:
 - Rebutting a business case, risk-checking a decision
 - Stress-testing system robustness
 
-**Trigger**: `/ruofeng-adversarial-review`, or phrases like "review", "find holes", "edge cases", "stress test", "ready to ship?"
+**Trigger**: `/rf-adversarial-review`, or phrases like "review", "find holes", "edge cases", "stress test", "ready to ship?"
 
 **Multi-agent mode**: for critical targets, say "turn on multi-agent adversarial review". N agents spawn concurrently, each playing a different attacker (malicious user / competitor / concurrency hunter). Non-overlapping blind spots — far stricter than single-agent linear pass.
 
 **Example**:
 ```
-/ruofeng-adversarial-review review the robustness of this feed-fetcher module (src/ attached)
+/rf-adversarial-review review the robustness of this feed-fetcher module (src/ attached)
 ```
 > Output: break goal → confirmed threats (fatal/serious/minor, with flaw/evidence/hardening) → ruled-out false positives → hardening priority
 
-### ruofeng-sync-skills — Cross-environment sync
+### rf-sync-skills — Cross-environment sync
 
 A tooling skill outside the generate-verify loop. Syncs `.claude/skills/` to other agent directories via symlinks — one sync, every environment updated.
 
-**Trigger**: `/ruofeng-sync-skills`, or "sync skills", "symlink skills"
+**Trigger**: `/rf-sync-skills`, or "sync skills", "symlink skills"
 
-### ruofeng-skill-installer — Generate install commands
+### rf-skill-installer — Generate install commands
 
 A tooling skill. Given a GitHub skill repo URL, parses it and generates `npx skills add` install commands, checking for extra dependencies along the way.
 
-**Trigger**: `/ruofeng-skill-installer`, or "install skill", "skill install"
+**Trigger**: `/rf-skill-installer`, or "install skill", "skill install"
 
 ## All Skills at a Glance
 
 | skill | purpose |
 |-------|---------|
-| ruofeng-first-principles | First-principles analysis — strip away surface to find root questions, build transferable mental models |
-| ruofeng-adversarial-review | Adversarial review — take the attacker's stance, find flaws, blind spots, and vulnerabilities |
-| ruofeng-sync-skills | Cross-environment skill sync via symlinks across agent directories |
-| ruofeng-skill-installer | Generate `npx skills add` install commands from GitHub skill repo URLs |
+| rf-first-principles | First-principles analysis — strip away surface to find root questions, build transferable mental models |
+| rf-adversarial-review | Adversarial review — take the attacker's stance, find flaws, blind spots, and vulnerabilities |
+| rf-sync-skills | Cross-environment skill sync via symlinks across agent directories |
+| rf-skill-installer | Generate `npx skills add` install commands from GitHub skill repo URLs |
 | find-skills | Discover and search for agent skills, verify quality before recommending |
 | skill-creator | Full workbench for creating, improving, and evaluating skills |
 | yao-meta-skill | Structured skill engineering methodology with Scaffold / Production / Library modes |
@@ -97,10 +97,10 @@ A tooling skill. Given a GitHub skill repo URL, parses it and generates `npx ski
 
 ```bash
 # Own skills
-npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-first-principles
-npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-adversarial-review
-npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-sync-skills
-npx skills add https://github.com/wangruofeng/meta-skill --skill ruofeng-skill-installer
+npx skills add https://github.com/wangruofeng/meta-skill --skill rf-first-principles
+npx skills add https://github.com/wangruofeng/meta-skill --skill rf-adversarial-review
+npx skills add https://github.com/wangruofeng/meta-skill --skill rf-sync-skills
+npx skills add https://github.com/wangruofeng/meta-skill --skill rf-skill-installer
 
 # Third-party skills (see third-skills/README.md for details)
 npx skills add https://github.com/vercel-labs/skills --skill find-skills

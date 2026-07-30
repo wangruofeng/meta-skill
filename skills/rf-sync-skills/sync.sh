@@ -1,6 +1,6 @@
 #!/bin/bash
 # sync.sh — 将 .claude/skills 同步到其他 agent 目录（软连接）
-# 支持：项目级调用（从 .claude/skills/ruofeng-sync-skills/ 运行）
+# 支持：项目级调用（从 .claude/skills/rf-sync-skills/ 运行）
 #      用户级调用（在任何项目目录下通过 Claude Code skill 调用）
 set -euo pipefail
 
@@ -70,7 +70,7 @@ echo
 source_names=()
 for skill_dir in "$CLAUDE_SKILLS"/*/; do
   name="$(basename "$skill_dir")"
-  [[ "$name" == "ruofeng-sync-skills" ]] && continue
+  [[ "$name" == "rf-sync-skills" ]] && continue
   source_names+=("$name")
 done
 

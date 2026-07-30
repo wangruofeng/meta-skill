@@ -1,4 +1,4 @@
-name: ruofeng-sync-skills
+name: rf-sync-skills
 description: 通过软链接将项目 .claude/skills 同步到其他 agent 目录（.codex/skills 等），自动保持同步（用户级全局 skill）
 
 inputs:
@@ -20,6 +20,6 @@ behavior:
 exclusions:
   - 不修改源目录 .claude/skills/ 下的任何文件
   - 不处理非软链接的真实目录（避免覆盖用户数据）
-  - 不同步自身（ruofeng-sync-skills）
+  - 不同步自身（rf-sync-skills）
   - 不执行文件拷贝，只创建软链接
   - 不修改 .gitignore，用户需自行配置

@@ -5,7 +5,7 @@
 ## 流程
 
 1. 生成一份结构化 markdown 笔记，含标题、日期、tags
-2. tags 至少含 `ruofeng-first-principles` + 领域标签
+2. tags 至少含 `rf-first-principles` + 领域标签
 3. source 记录输入来源（URL 或「以 X 为案例」）
 4. 在文末「## 相关内容」列出第一步搜到的关联材料（若有）
 5. 存储位置由用户决定（建议放回当前项目/笔记目录的合适位置）

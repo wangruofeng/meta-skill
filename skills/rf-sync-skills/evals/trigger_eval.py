@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Trigger 评估用例
-用于验证 ruofeng-sync-skills skill 的触发描述是否准确
+用于验证 rf-sync-skills skill 的触发描述是否准确
 """
 
 import json

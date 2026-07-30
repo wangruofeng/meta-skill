@@ -1,4 +1,4 @@
-name: ruofeng-adversarial-review
+name: rf-adversarial-review
 description: 对抗式审查。强制站到对立面，主动构造攻击向量去击穿审查对象，找破绽、盲区、漏洞和反例。
 
 inputs:

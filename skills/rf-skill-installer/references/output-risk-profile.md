@@ -1,4 +1,4 @@
-# Output Risk Profile: ruofeng-skill-installer
+# Output Risk Profile: rf-skill-installer
 
 > Generated: 2026-06-01 | Methodology: YAO Output Quality Risk
 

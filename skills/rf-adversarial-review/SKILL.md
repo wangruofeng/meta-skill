@@ -1,11 +1,11 @@
 ---
-name: ruofeng-adversarial-review
+name: rf-adversarial-review
 description: 对抗式审查。强制站在「对立面」对方案、代码、文章、决策或任何产出进行攻击性审查，主动寻找破绽、盲区、漏洞和反例，而不是顺向确认它没问题。与第一性原理（管生成）对称，本 skill 管「验证」——当用户想确认一个东西「真的没毛病」「能扛得住」时使用。典型场景：代码上线前的 BUG 狩猎、文章/方案的逻辑挑刺、商业方案的反驳、决策的风险排查、系统健壮性测试。只要用户提到「审查/Review/找漏洞/挑刺/挑毛病/有没有问题/扛得住/边界情况/反例/攻击/压力测试/能不能上线/确认没毛病」，或表达「帮我看看这东西稳不稳/会不会出错」，就触发本 skill。尤其当用户说「开启多 agent 对抗审查」时，必然触发。
 version: 0.1.0
 argument-hint: "要审查的对象（代码/文章/方案/决策，可附路径或内容）"
 ---
 
-# /ruofeng-adversarial-review — 对抗式审查
+# /rf-adversarial-review — 对抗式审查
 
 强制站到对立面，主动构造攻击向量去击穿审查对象，而不是顺向确认它没问题。设计哲学见 [references/philosophy.md](references/philosophy.md)。
 
@@ -98,4 +98,4 @@ argument-hint: "要审查的对象（代码/文章/方案/决策，可附路径�
 
 ## 相关 skill
 
-- 审查前先把方案想对 → 配套的 `ruofeng-first-principles` skill（生成端，与本 skill 对称）
+- 审查前先把方案想对 → 配套的 `rf-first-principles` skill（生成端，与本 skill 对称）

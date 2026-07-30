@@ -1,6 +1,6 @@
 # Web 技术栈第一性原理拆解
 
-> 这是 `/ruofeng-first-principles` skill 的一段示例输出，用来展示它的产出长什么样。
+> 这是 `/rf-first-principles` skill 的一段示例输出，用来展示它的产出长什么样。
 >
 > **输入**：「NewsNow 的技术栈 React + TanStack Router + TanStack Query + Jotai + UnoCSS + Vite + Nitro，我刚转 Web 不熟」
 

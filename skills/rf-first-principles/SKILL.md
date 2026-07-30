@@ -1,11 +1,11 @@
 ---
-name: ruofeng-first-principles
+name: rf-first-principles
 description: 第一性原理解读与分析。把任何复杂的技术栈、新概念/新领域、模糊问题或一段内容，剥离表象拆解到不可再分的「根本问题」，建立可迁移的心智模型。当用户想真正「搞懂」某个东西的本质而不是表面用法时使用——例如理解一个项目的库/框架各自解决什么根本问题、刚转一个新领域想快速建立认知框架、面对复杂问题想找到本质、或想把一篇文章/书的底层逻辑提炼出来。只要用户提到「第一性原理」「本质」「为什么」「根本」「底层逻辑」「拆解」「从零理解」「心智模型」，或表达「看不懂一堆名词想理清」，就触发本 skill。
 version: 0.1.0
 argument-hint: "要解读的主题 / 问题 / 内容（可附 URL 或笔记）"
 ---
 
-# /ruofeng-first-principles — 第一性原理解读与分析
+# /rf-first-principles — 第一性原理解读与分析
 
 把事物拆解到不可再分的基本要素（根本问题），再从这些要素出发重建理解——不是记忆结论，而是建立可迁移的心智模型。设计哲学见 [references/philosophy.md](references/philosophy.md)。
 
@@ -80,4 +80,4 @@ argument-hint: "要解读的主题 / 问题 / 内容（可附 URL 或笔记）"
 
 ## 相关 skill
 
-- 拆完想验证方案扛不扛得住 → 配套的 `ruofeng-adversarial-review` skill（验证端，与本 skill 对称）
+- 拆完想验证方案扛不扛得住 → 配套的 `rf-adversarial-review` skill（验证端，与本 skill 对称）
