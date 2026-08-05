@@ -1,7 +1,7 @@
 ---
 name: rf-skill-installer
 description: "输入 GitHub skill 仓库 URL，生成 npx skills add 安装命令。涉及'安装 skill'/'skill 安装'时路由至此。"
-version: 1.1.0
+version: 1.2.0
 ---
 
 # Skill 安装命令生成器
@@ -25,19 +25,26 @@ version: 1.1.0
 
 ### 2. 生成安装命令（全部列出）
 
+作用域分两档：**项目级**（无 `-g`，装到当前项目 `.claude/skills/`）与**全局**（`-g`，所有项目可用）；目标分两档：默认 与 **Claude Code**（`-a claude-code -y`）。两者组合如下：
+
 ```bash
-# 项目级安装
+# 项目级安装（仅当前项目可用）
 npx skills add <owner/repo>
+
+# 项目级安装到 Claude Code（推荐：仅当前项目 + 自动确认）
+npx skills add <owner/repo> -a claude-code -y
 
 # 全局安装（所有项目可用）
 npx skills add <owner/repo> -g
 
-# 安装到 Claude Code（推荐）
+# 全局安装到 Claude Code（所有项目 + 自动确认）
 npx skills add <owner/repo> -g -a claude-code -y
 
 # 查看可用 skills
 npx skills add <owner/repo> --list
 ```
+
+> 默认推荐「项目级安装到 Claude Code」——skill 跟随项目、不污染全局环境；仅当确需跨项目复用时再选全局。
 
 ### 3. 检查 README 额外步骤
 
