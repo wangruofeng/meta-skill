@@ -1,12 +1,25 @@
 ---
 name: rf-sync-skills
 description: "通过软链接将 .claude/skills 同步到其他 agent 目录（.codex/skills, .cursor/skills 等），自动创建、更新、清理软链接，保持跨环境 skill 即时同步"
-version: 0.4.0
+version: 0.5.0
 ---
 
 # Skill 同步工具
 
 通过软链接将 `.claude/skills/` 下的所有 skill 同步到其他 agent 目录。一次同步，所有环境即时生效。
+
+## 安装为全局命令（可选）
+
+一键安装 `skills-sync` 命令（alias），之后可在任意项目目录直接同步：
+
+```bash
+bash .claude/skills/rf-sync-skills/install.sh              # 安装/更新
+bash .claude/skills/rf-sync-skills/install.sh --uninstall  # 卸载
+```
+
+- 存在 `~/.zshrc`（或登录 shell 为 zsh）→ 写入 `~/.zshrc`；否则写入 `~/.bash_profile`
+- 重复执行幂等：自动更新指向路径，不产生重复条目
+- 安装后执行 `source` 配置文件（或新开终端）生效
 
 ## 使用
 
@@ -26,6 +39,7 @@ bash .claude/skills/rf-sync-skills/sync.sh .codex/skills .cursor/skills
 
 ## 行为
 
+- **源目录守卫**：`.claude/skills/` 不存在时直接报错退出，不做任何修改
 - **自动发现目标**：仅扫描项目根目录下的一级 `.<agent>/skills/` 目录，跳过更深层嵌套（如 `.git/modules/.claude/skills`）与 `.git/` 内部目录，避免误同步污染 git 子模块镜像库
 - **相对路径软链接**：`../../.claude/skills/xxx`，跨机器可用
 - **自排除**：不同步 `rf-sync-skills` 自身

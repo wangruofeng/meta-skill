@@ -73,6 +73,14 @@ meta-skill 用两个 skill 把这两项能力显式化：
 
 **触发方式**：`/rf-sync-skills`，或提到「同步 skills」「软链接 skill」
 
+**一键安装全局命令**：
+
+```bash
+bash .claude/skills/rf-sync-skills/install.sh   # 卸载加 --uninstall
+```
+
+安装后在任意项目目录可用 `skills-sync [--dry-run]` 命令（写入 `~/.zshrc`，无 zsh 时写入 `~/.bash_profile`）。
+
 ### rf-skill-installer — 生成安装命令
 
 工具型 skill，输入 GitHub skill 仓库 URL，自动解析并生成 `npx skills add` 安装命令，同时检查是否有额外依赖。

@@ -73,6 +73,14 @@ A tooling skill outside the generate-verify loop. Syncs `.claude/skills/` to oth
 
 **Trigger**: `/rf-sync-skills`, or "sync skills", "symlink skills"
 
+**One-click global command**:
+
+```bash
+bash .claude/skills/rf-sync-skills/install.sh   # add --uninstall to remove
+```
+
+After installing, `skills-sync [--dry-run]` works in any project directory (written to `~/.zshrc`, or `~/.bash_profile` when zsh is absent).
+
 ### rf-skill-installer — Generate install commands
 
 A tooling skill. Given a GitHub skill repo URL, parses it and generates `npx skills add` install commands, checking for extra dependencies along the way.
