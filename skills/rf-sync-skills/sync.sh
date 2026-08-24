@@ -14,6 +14,13 @@ fi
 
 CLAUDE_SKILLS="$PROJECT_ROOT/.claude/skills"
 
+# 源目录不存在时直接报错退出，避免 glob 不展开把字面量 * 当成 skill 名
+if [[ ! -d "$CLAUDE_SKILLS" ]]; then
+  echo "错误: 源目录不存在: $CLAUDE_SKILLS" >&2
+  echo "  请在包含 .claude/skills/ 的项目根目录运行" >&2
+  exit 1
+fi
+
 # 默认目标
 TARGETS=()
 DRY_RUN=false

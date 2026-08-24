@@ -8,6 +8,7 @@ meta-skill/
 │   └── rf-*/    ← 命名规范：rf- 前缀
 │       └── SKILL.md  ← 必需：YAML frontmatter（name, description）
 ├── third-skills/     ← 第三方 skills（只读，禁止修改内容）
+├── AGENTS.md         ← 软链 → CLAUDE.md（供读 AGENTS.md 的 agent；只改 CLAUDE.md，勿直接编辑）
 ├── README.md         ← 中文主文档
 └── README.en.md      ← 英文文档（与 README.md 保持同步）
 ```
