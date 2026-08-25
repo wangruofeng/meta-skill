@@ -1,7 +1,7 @@
 ---
 name: rf-sync-skills
-description: "通过软链接将 .claude/skills 同步到其他 agent 目录（.codex/skills, .cursor/skills 等），自动创建、更新、清理软链接，保持跨环境 skill 即时同步"
-version: 0.5.0
+description: "通过软链接将 .claude/skills 同步到其他 agent 目录（.codex/skills、.cursor/skills 等），保持跨环境 skill 即时同步。"
+version: 0.5.1
 ---
 
 # Skill 同步工具

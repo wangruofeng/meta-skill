@@ -1,7 +1,7 @@
 ---
 name: rf-skill-installer
-description: "输入 GitHub skill 仓库 URL，生成 npx skills add 安装命令。涉及'安装 skill'/'skill 安装'时路由至此。"
-version: 1.2.0
+description: "输入 GitHub skill 仓库 URL，生成 npx skills add 安装命令。涉及「安装 skill」时使用。"
+version: 1.2.1
 ---
 
 # Skill 安装命令生成器
