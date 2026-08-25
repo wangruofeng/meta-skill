@@ -12,9 +12,11 @@ version: 0.2.0
 
 一键安装 `skills-init` 命令（alias），之后可在任意项目目录直接初始化；已初始化的项目自动跳过：
 
+> 下面脚本路径中的 `{baseDir}` 指本 SKILL.md 所在目录（即本 skill 目录），运行时替换为实际路径。
+
 ```bash
-bash ~/.claude/skills/rf-skills-init/install.sh              # 安装/更新
-bash ~/.claude/skills/rf-skills-init/install.sh --uninstall  # 卸载
+bash {baseDir}/scripts/install.sh              # 安装/更新
+bash {baseDir}/scripts/install.sh --uninstall  # 卸载
 ```
 
 - 存在 `~/.zshrc`（或登录 shell 为 zsh）→ 写入 `~/.zshrc`；否则写入 `~/.bash_profile`
@@ -31,16 +33,16 @@ skills-init                # 已初始化的项目自动跳过
 skills-init --force        # 跳过检查，强制执行并输出完整报告
 
 # 完整初始化：创建目录 + 软链接
-bash .claude/skills/rf-skills-init/init.sh
+bash {baseDir}/scripts/init.sh
 
 # 预览模式，不做任何修改
-bash .claude/skills/rf-skills-init/init.sh --dry-run
+bash {baseDir}/scripts/init.sh --dry-run
 
 # 只创建目录，不建软链接
-bash .claude/skills/rf-skills-init/init.sh --dirs-only
+bash {baseDir}/scripts/init.sh --dirs-only
 
 # 自定义目标目录
-bash .claude/skills/rf-skills-init/init.sh .codex/skills .cursor/skills
+bash {baseDir}/scripts/init.sh .codex/skills .cursor/skills
 ```
 
 脚本可从项目任意子目录运行，会自动定位 git 仓库根目录（非 git 项目则用当前目录）。

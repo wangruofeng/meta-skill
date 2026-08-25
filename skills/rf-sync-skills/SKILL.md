@@ -12,9 +12,11 @@ version: 0.5.1
 
 一键安装 `skills-sync` 命令（alias），之后可在任意项目目录直接同步：
 
+> 下面脚本路径中的 `{baseDir}` 指本 SKILL.md 所在目录（即本 skill 目录），运行时替换为实际路径。
+
 ```bash
-bash .claude/skills/rf-sync-skills/install.sh              # 安装/更新
-bash .claude/skills/rf-sync-skills/install.sh --uninstall  # 卸载
+bash {baseDir}/scripts/install.sh              # 安装/更新
+bash {baseDir}/scripts/install.sh --uninstall  # 卸载
 ```
 
 - 存在 `~/.zshrc`（或登录 shell 为 zsh）→ 写入 `~/.zshrc`；否则写入 `~/.bash_profile`
@@ -28,13 +30,13 @@ bash .claude/skills/rf-sync-skills/install.sh --uninstall  # 卸载
 /rf-sync-skills
 
 # 预览模式
-bash .claude/skills/rf-sync-skills/sync.sh --dry-run
+bash {baseDir}/scripts/sync.sh --dry-run
 
 # 自动识别模式
-bash .claude/skills/rf-sync-skills/sync.sh
+bash {baseDir}/scripts/sync.sh
 
 # 手动指定目标
-bash .claude/skills/rf-sync-skills/sync.sh .codex/skills .cursor/skills
+bash {baseDir}/scripts/sync.sh .codex/skills .cursor/skills
 ```
 
 ## 行为
@@ -50,7 +52,7 @@ bash .claude/skills/rf-sync-skills/sync.sh .codex/skills .cursor/skills
 检查清单：`references/checklist.md`
 接口定义：`agents/interface.yaml`
 质量评估：`evals/`
-风险报告：`reports/`
+风险报告：`reports/output-risk-profile.md`
 
 ## 输出示例
 

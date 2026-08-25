@@ -67,6 +67,20 @@ meta-skill makes both explicit with two skills:
 ```
 > Output: break goal → confirmed threats (fatal/serious/minor, with flaw/evidence/hardening) → ruled-out false positives → hardening priority
 
+### rf-skills-init — Initialize project skill directories
+
+A tooling skill. Uses `.claude/skills/` as the single source of truth, creates project-level skill directories for zcode / codex and relative symlinks — one-time init for a new project, every environment ready instantly.
+
+**Trigger**: `/rf-skills-init`, or "init skill directories", "configure zcode / codex skills", "project has no .claude/skills yet"
+
+**One-click global command**:
+
+```bash
+bash .claude/skills/rf-skills-init/scripts/install.sh   # add --uninstall to remove
+```
+
+After installing, `skills-init [--dry-run]` works in any project directory (written to `~/.zshrc`, or `~/.bash_profile` when zsh is absent).
+
 ### rf-sync-skills — Cross-environment sync
 
 A tooling skill outside the generate-verify loop. Syncs `.claude/skills/` to other agent directories via symlinks — one sync, every environment updated.
@@ -76,7 +90,7 @@ A tooling skill outside the generate-verify loop. Syncs `.claude/skills/` to oth
 **One-click global command**:
 
 ```bash
-bash .claude/skills/rf-sync-skills/install.sh   # add --uninstall to remove
+bash .claude/skills/rf-sync-skills/scripts/install.sh   # add --uninstall to remove
 ```
 
 After installing, `skills-sync [--dry-run]` works in any project directory (written to `~/.zshrc`, or `~/.bash_profile` when zsh is absent).
@@ -94,6 +108,7 @@ A tooling skill. Given a GitHub skill repo URL, parses it and generates `npx ski
 | rf-first-principles | First-principles analysis — strip away surface to find root questions, build transferable mental models |
 | rf-adversarial-review | Adversarial review — take the attacker's stance, find flaws, blind spots, and vulnerabilities |
 | rf-sync-skills | Cross-environment skill sync via symlinks across agent directories |
+| rf-skills-init | Initialize project multi-agent skill directories, symlink for zcode / codex |
 | rf-skill-installer | Generate `npx skills add` install commands from GitHub skill repo URLs |
 | find-skills | Discover and search for agent skills, verify quality before recommending |
 | skill-creator | Full workbench for creating, improving, and evaluating skills |
@@ -108,6 +123,7 @@ A tooling skill. Given a GitHub skill repo URL, parses it and generates `npx ski
 npx skills add https://github.com/wangruofeng/meta-skill --skill rf-first-principles
 npx skills add https://github.com/wangruofeng/meta-skill --skill rf-adversarial-review
 npx skills add https://github.com/wangruofeng/meta-skill --skill rf-sync-skills
+npx skills add https://github.com/wangruofeng/meta-skill --skill rf-skills-init
 npx skills add https://github.com/wangruofeng/meta-skill --skill rf-skill-installer
 
 # Third-party skills (see third-skills/README.md for details)
@@ -128,7 +144,7 @@ cp -r meta-skill/skills/* <project>/.claude/skills/
 
 ## Contributing
 
-Issues and PRs welcome. Each skill's methodology (steps, output structure, style) is the core — change with care.
+Issues and PRs welcome. Each skill's methodology (steps, output structure, style) is the core — change with care. Read [docs/creating-skills.md](docs/creating-skills.md) (directory conventions) before adding a new skill.
 
 ## License
 

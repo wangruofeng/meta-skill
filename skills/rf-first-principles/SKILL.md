@@ -29,7 +29,8 @@ argument-hint: "要解读的主题 / 问题 / 内容（可附 URL 或笔记）"
 
 ## 参考
 
+- 接口契约（机器可读）：[agents/interface.yaml](agents/interface.yaml)
 - 风格：通俗优先、重「为什么」轻「是什么」、类比克制、引用已有内容、避免空话 → [references/style-guide.md](references/style-guide.md)
 - 讲解完成后主动询问是否存为笔记 → [references/note-saving.md](references/note-saving.md)
-- 更多示例 → [references/examples.md](references/examples.md)
+- 更多示例 → [examples/decompositions.md](examples/decompositions.md)
 - 拆完想验证方案扛不扛得住 → 配套的 `rf-adversarial-review`（验证端，与本 skill 对称）

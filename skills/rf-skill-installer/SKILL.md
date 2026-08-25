@@ -62,3 +62,8 @@ npx skills add <owner/repo> --list
 
 1. 禁止实际执行安装命令
 2. 禁止对非 GitHub URL 生成命令
+
+## 参考
+
+- 治理元数据：`manifest.json`
+- 产出风险报告：`reports/output-risk-profile.md`

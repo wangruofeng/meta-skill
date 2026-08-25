@@ -67,6 +67,20 @@ meta-skill 用两个 skill 把这两项能力显式化：
 ```
 > 输出：破坏目标 → 确认的威胁（致命/严重/一般，含破绽/证据/加固）→ 排除的假阳性 → 加固优先级
 
+### rf-skills-init — 初始化项目 skill 目录
+
+工具型 skill。以 `.claude/skills/` 为基准（唯一事实源），为 zcode / codex 创建项目级 skill 目录并建立相对路径软链接——新项目一次性初始化，多环境即时可用。
+
+**触发方式**：`/rf-skills-init`，或提到「初始化 skill 目录」「配置 zcode / codex 的 skill」「项目还没有 .claude/skills」
+
+**一键安装全局命令**：
+
+```bash
+bash .claude/skills/rf-skills-init/scripts/install.sh   # 卸载加 --uninstall
+```
+
+安装后在任意项目目录可用 `skills-init [--dry-run]` 命令（写入 `~/.zshrc`，无 zsh 时写入 `~/.bash_profile`）。
+
 ### rf-sync-skills — 跨环境同步
 
 工具型 skill，不参与生成-验证闭环。通过软链接把 `.claude/skills/` 同步到其他 agent 目录，一次同步所有环境可用。
@@ -76,7 +90,7 @@ meta-skill 用两个 skill 把这两项能力显式化：
 **一键安装全局命令**：
 
 ```bash
-bash .claude/skills/rf-sync-skills/install.sh   # 卸载加 --uninstall
+bash .claude/skills/rf-sync-skills/scripts/install.sh   # 卸载加 --uninstall
 ```
 
 安装后在任意项目目录可用 `skills-sync [--dry-run]` 命令（写入 `~/.zshrc`，无 zsh 时写入 `~/.bash_profile`）。
@@ -94,6 +108,7 @@ bash .claude/skills/rf-sync-skills/install.sh   # 卸载加 --uninstall
 | rf-first-principles | 第一性原理解读，剥离表象找到根本问题，建立可迁移心智模型 |
 | rf-adversarial-review | 对抗式审查，站在攻击者视角找破绽、盲区和漏洞 |
 | rf-sync-skills | 跨环境同步 skills，通过软链接保持多 agent 目录一致 |
+| rf-skills-init | 初始化项目多 agent skill 目录，为 zcode / codex 建立软链接 |
 | rf-skill-installer | 输入 GitHub skill 仓库 URL，生成 npx skills add 安装命令 |
 | find-skills | 搜索和发现 agent skills，验证质量后推荐安装 |
 | skill-creator | 创建、改进和评估 skills 的完整工作台 |
@@ -108,6 +123,7 @@ bash .claude/skills/rf-sync-skills/install.sh   # 卸载加 --uninstall
 npx skills add https://github.com/wangruofeng/meta-skill --skill rf-first-principles
 npx skills add https://github.com/wangruofeng/meta-skill --skill rf-adversarial-review
 npx skills add https://github.com/wangruofeng/meta-skill --skill rf-sync-skills
+npx skills add https://github.com/wangruofeng/meta-skill --skill rf-skills-init
 npx skills add https://github.com/wangruofeng/meta-skill --skill rf-skill-installer
 
 # 第三方 skills（详见 third-skills/README.md）
@@ -128,7 +144,7 @@ cp -r meta-skill/skills/* <项目>/.claude/skills/
 
 ## 贡献
 
-欢迎提 issue / PR。各 skill 的方法论部分（执行步骤、输出结构、风格要求）是核心，改动请谨慎。
+欢迎提 issue / PR。各 skill 的方法论部分（执行步骤、输出结构、风格要求）是核心，改动请谨慎。新增 skill 请先读 [docs/creating-skills.md](docs/creating-skills.md)（目录规范）。
 
 ## License
 

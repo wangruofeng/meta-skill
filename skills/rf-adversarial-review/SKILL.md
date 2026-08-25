@@ -25,10 +25,11 @@ argument-hint: "要审查的对象（代码/文章/方案/决策，可附路径�
 
 依次输出：**破坏目标** → **攻击总结**（一句话：能扛/有缺口/脆弱）→ **确认的威胁**（按严重度排序，每条含破绽/证据/后果/加固）→ **排除的伪问题**（≥3 条，避免误导）→ **未覆盖的攻击面**（必填）→ **加固优先级**。
 
-完整报告示例见 [references/examples.md](references/examples.md)。
+完整报告示例见 [examples/review-report.md](examples/review-report.md)。
 
 ## 参考
 
+- 接口契约（机器可读）：[agents/interface.yaml](agents/interface.yaml)
 - 重要对象建议多 agent 对抗：并发多 agent 各扮演不同攻击者（找并发 bug 的/恶意用户/竞争对手等），汇总去重按严重度排序 → [references/multi-agent-adversarial.md](references/multi-agent-adversarial.md)
 - 风格：攻击者口吻、具体胜过抽象、区分严重度、诚实区分真伪 → [references/style-guide.md](references/style-guide.md)
 - 审查前先把方案想对 → 配套的 `rf-first-principles`（生成端，与本 skill 对称）
